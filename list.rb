@@ -1,13 +1,19 @@
+require_relative "task"
+
 class List
   attr_reader :title, :tasks
 
   def initialize(title, tasks = [])
+    raise ArgumentError, "Title must be a string" unless title.class == String
+    raise ArgumentError, "Tasks must be an array" unless tasks.class == Array
+    
     @title = title
     @tasks = tasks
   end
 
   def add_task(task)
-    tasks << task
+    task_obj = Task.new(task)
+    tasks << task_obj
   end
 
   def complete_task(index)
